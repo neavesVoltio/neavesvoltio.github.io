@@ -6,7 +6,7 @@ export function logOut(){
     logoutButton.addEventListener('click', async () => {
         await signOut(auth)
         console.log('logout')
-        window.open('http://localhost:5501/src/index.html', '_self');
+        window.open('https://neavesvoltio.github.io/index.html', '_self');
     })
 
         
