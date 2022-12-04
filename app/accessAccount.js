@@ -14,7 +14,7 @@ window.onload = function(){
         return
         // ...
     } else {
-        window.open('http://localhost:5501/src/acceso.html', '_self');
+        window.open('https://neavesvoltio.github.io/acceso.html', '_self');
         console.log('user is not logged')
     }
     });
