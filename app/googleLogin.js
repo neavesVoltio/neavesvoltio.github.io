@@ -10,7 +10,7 @@ googleButton.addEventListener('click', async () => {
     try{
       const credentials = await signInWithPopup(auth, provider)
       console.log(credentials)
-      window.open('http://localhost:5501/src/index.html', '_self');
+      window.open('https://neavesvoltio.github.io/index.html', '_self');
       
       showMessages('Welcome ' + credentials.user.displayName, 'success')
     } catch (error){
