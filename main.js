@@ -7,7 +7,7 @@ import './app/logout.js'
 //import './app/signinForm.js'
 //import './app/googleLogin.js'
 export let webDomain = "http://localhost:5500"
-// localhost:5555
+// http://localhost:5500
 // https://neavesvoltio.github.io
 onAuthStateChanged(auth, async (user) => {
     try{
