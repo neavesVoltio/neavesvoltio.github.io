@@ -63,7 +63,7 @@ console.log('start js/main');
 					visibleClass: 'navPanel-visible'
 				});
 
-	// Header.
+	/* Header.
 		if (!browser.mobile
 		&&	$header.hasClass('alt')
 		&&	$banner.length > 0) {
@@ -79,6 +79,6 @@ console.log('start js/main');
 
 			});
 
-		}
+		} */
 
 })(jQuery);
