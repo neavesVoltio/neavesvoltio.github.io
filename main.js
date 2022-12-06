@@ -6,10 +6,12 @@ import { loginCheck } from './app/loginCheck.js'
 import './app/logout.js'
 //import './app/signinForm.js'
 //import './app/googleLogin.js'
-
+export let webDomain = "http://localhost:5500"
+// localhost:5555
+// https://neavesvoltio.github.io
 onAuthStateChanged(auth, async (user) => {
     try{
-    //console.log('this is the user ' + user.email)
+    
     if(user){
         loginCheck(user)
     } else {

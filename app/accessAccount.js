@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
-
+import  webDomain  from "../main"
 
 window.onload = function(){
     console.log('reservacion')
@@ -14,7 +14,7 @@ window.onload = function(){
         return
         // ...
     } else {
-        window.open('https://neavesvoltio.github.io/acceso.html', '_self');
+        window.open( webDomain + '/acceso.html', '_self');
         console.log('user is not logged')
     }
     });

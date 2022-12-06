@@ -15,12 +15,15 @@ const selectedModal = document.getElementById('setDateModal')
         
           },
           dateClick: function(info){
+            console.log(info)
+            let date = new Date(info.date)
+            let day = date.getMonth()
+            console.log(day)
             let reservationData = {}
             reservationData.dateStr = info.dateStr
             reservationData.systemDate = info.date
               document.getElementById('start').innerHTML = info.dateStr
               myModal.show()
-              console.log(reservationData);
           }
         });
         calendar.render();

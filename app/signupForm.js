@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword, getAuth, updateProfile } from "https://
 import { auth } from './firebase.js'
 import { showMessages } from './showMessages.js'
 import { runCompleteUserData } from './completeUserData.js'
+import  webDomain  from "../main.js"
 console.log('access signupForm')
 const signupForm = document.querySelector('#signupButton')
 const name = document.querySelector('#name')
@@ -10,7 +11,7 @@ const phone = document.querySelector('#phone')
 const cumple = document.querySelector('#cumple')
 const password = document.querySelector('#password')
 const signupPassword = document.querySelector('#signup-password')
-
+alert(webDomain)
 
 console.log(signupForm);
 signupForm.addEventListener('click', async () =>{
@@ -34,7 +35,7 @@ signupForm.addEventListener('click', async () =>{
             })
             // Agregar una funcion para guardar el numero de telefono y la fecha de cumpleaños en firebase
             runCompleteUserData(phone, cumple)
-            window.open('http://localhost:5501/src/index.html', '_self');
+            window.open( webDomain+ '/index.html', '_self');
 
             
            
