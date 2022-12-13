@@ -16,6 +16,8 @@ FullCalendar.globalLocales.push(function () {
       day: "D\xEDa",
       list: "Agenda"
     },
+    
+    themeSystem: 'bootstrap5',
     buttonHints: {
       prev: "$0 antes",
       next: "$0 siguiente",
