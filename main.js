@@ -6,7 +6,7 @@ import { loginCheck } from './app/loginCheck.js'
 import './app/logout.js'
 //import './app/signinForm.js'
 //import './app/googleLogin.js'
-export let webDomain = "http://localhost:5500"
+export let webDomain = "https://neavesvoltio.github.io"
 // http://localhost:5500
 // https://neavesvoltio.github.io
 onAuthStateChanged(auth, async (user) => {
