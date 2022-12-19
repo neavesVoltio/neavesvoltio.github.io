@@ -4,7 +4,7 @@ import { loginCheck } from './app/loginCheck.js'
 
 import './app/logout.js'
 //import "https://www.google.com/recaptcha/api.js?render=6Le4-Y0jAAAAAIFKQGEkMpXiLXtKPg_GOvZcgB3F"
-export let webDomain = "http://localhost:5500"
+export let webDomain = "https://neavesvoltio.github.io"
 // http://localhost:5500
 // https://neavesvoltio.github.io
 
