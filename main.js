@@ -2,13 +2,12 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/fi
 import { auth } from './app/firebase.js'
 import { loginCheck } from './app/loginCheck.js'
 
-//import './app/signupForm.js'
 import './app/logout.js'
-//import './app/signinForm.js'
-//import './app/googleLogin.js'
-export let webDomain = "https://neavesvoltio.github.io"
+//import "https://www.google.com/recaptcha/api.js?render=6Le4-Y0jAAAAAIFKQGEkMpXiLXtKPg_GOvZcgB3F"
+export let webDomain = "http://localhost:5500"
 // http://localhost:5500
 // https://neavesvoltio.github.io
+
 onAuthStateChanged(auth, async (user) => {
     try{
     

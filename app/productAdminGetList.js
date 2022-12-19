@@ -7,7 +7,7 @@ export const productos = query(collection(db, 'productos'));
             const querySnapshot = await getDocs(productos);
             const allData = querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
-              console.log(doc.id, ' => ', doc.data());
+              // console.log(doc.id, ' => ', doc.data());
 
               let mainDiv = document.getElementById('productContainer')
               let divCol = document.createElement('div')

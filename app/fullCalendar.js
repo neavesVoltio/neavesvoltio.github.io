@@ -18,14 +18,16 @@ import { auth } from './firebase.js'
         onAuthStateChanged(auth, async (user) => {
          // console.log(user)
           if (user) {
+// funcion que muestra las reservas en el calendario al cargar, solo muestra el nombre del usuario logueado, el resto lo muestra solo como reservado            
             const reserva = query(collection(db, 'reservaciones'));
             //query(collection(db, 'reservaciones'), where('email', '==', user.email));
             const querySnapshot = await getDocs(reserva);
             let pullData = []
             const allData = querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-             // console.log(doc.id, ' => ', doc.data());
-              pullData.push({title: doc.data().title, start: doc.data().start , color: '#ab077f'})
+            // doc.data() is never undefined for query doc snapshots
+             let title = doc.data().title === user.displayName ? doc.data().title : 'Reservado'
+             let color = doc.data().title === user.displayName ? '#CDA556' : '#815A00'
+              pullData.push({title: title, start: doc.data().start , color: color})
             })
            // console.log(pullData)
     
@@ -59,28 +61,25 @@ import { auth } from './firebase.js'
               eventTimeFormat: { // like '14:30:00'
                 hour: '2-digit',
                 minute: '2-digit',
-                //second: '2-digit',
                 meridiem: false
               },
               defaultTimedEventDuration: '02:00',
               select: function(selectInfo){
-                console.log(selectInfo.endStr)
                 let endStr = selectInfo.endStr
                 reservationButton.dataset.reservationDateEnd = endStr
               },
               dateClick: async function(info){
                 
               let date = new Date(info.date)
+              let today = new Date()
               let months = ["ENE", "FEB", "MAR", 'ABR', "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"]
               let hours = date.getHours()
               let year = date.getFullYear()
               let hour = hours
               let day = date.getDate()
               
-              //  funcion para asignar fechas al modal 
+//  funcion para asignar fechas al modal 
                 
-                
-
                 if(hour === 0 ){
                   calendar.changeView('timeGridDay', info.dateStr);
                   
@@ -95,7 +94,7 @@ import { auth } from './firebase.js'
                   let overlapCount = []
                   let numberOfEmployees = 2
                   
-                  // funcion para saber si hay overlap en las fechas seleccionadas 
+// funcion para saber si hay overlap en las fechas seleccionadas 
                   let hourForOverlap = minute === 30 ? hour + 1.5 : hour + 1
                   let overlap = query(collection(db, 'reservaciones'), 
                                 where('reservationDateDay', '==', reservationDateDay), 
@@ -104,18 +103,23 @@ import { auth } from './firebase.js'
                   const overlapSnapshot = await getDocs(overlap);
                   let allData = overlapSnapshot.forEach((doc) => {
                     // doc.data() is never undefined for query doc snapshots
-                    console.log('overlap');
-                    console.log(doc.id, ' => ', doc.data());
+                    // console.log(doc.id, ' => ', doc.data());
                     overlapCount.push('1')
                   })
                   let employeesAvailable = 'No hay horario disponible, favor de seleccionar otro horario'
                   console.log(overlapCount.length);
 //    Funcion que asigna los servicios 
                   let serviceCheck = document.querySelectorAll('.serviceCheck')
+                  
                   let services = []
+                  let concatServices = []
                   serviceCheck.forEach( function(element) {
                     try{
-                      services.push(' ' + element.attributes[4].value )
+                      if(element.checked){
+                        services.push(element.attributes[4].value )
+                        concatServices.push(' ' + element.attributes[4].value)
+                      }
+                      
                     } catch(error){
                       console.log(error);
                     }})            
@@ -123,7 +127,7 @@ import { auth } from './firebase.js'
                   let reservationDate = 'Hola, te gustaría programar la cita el día '+ day  + " de " + 
                   months[date.getMonth()] + " del " + date.getFullYear() + " a las " + hour  + ":" + minute
                   document.getElementById('start').innerHTML =  overlapCount.length >= numberOfEmployees ? employeesAvailable : reservationDate
-                  document.getElementById('services').innerHTML = services
+                  document.getElementById('services').innerHTML = concatServices
                   const reservationButton = document.getElementById('reservationButton')
                   if(overlapCount.length >= numberOfEmployees){
                     reservationButton.style.display = 'none'
@@ -132,13 +136,15 @@ import { auth } from './firebase.js'
                   reservationButton.dataset.reservationDateDay = reservationDateDay
                   reservationButton.dataset.reservationStartHour = hour
                   reservationButton.dataset.reservationEndtHour = hour + 2
-
-                  myModal.show()
-                  
+                  reservationButton.dataset.services = services
+              
+                  if(today <= date){
+                    myModal.show()
+                  }
                 }
                  
                 return info.date
-              }
+              } // termina dateClick
             });
             } catch (error){
               console.log(error);

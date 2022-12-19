@@ -10,11 +10,16 @@ googleButton.addEventListener('click', async () => {
       const credentials = await signInWithPopup(auth, provider)
       console.log(credentials)
       window.open(webDomain + '/index.html', '_self');
-      
       showMessages('Welcome ' + credentials.user.displayName, 'success')
     } catch (error){
         console.log(error)
-   
     }
     
-})
+}) 
+
+/*
+site key
+6Le4-Y0jAAAAAIFKQGEkMpXiLXtKPg_GOvZcgB3F
+secret key
+6Le4-Y0jAAAAAATCwlV80yS0l6koHtxzU49bOUNZ
+*/

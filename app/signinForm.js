@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
 import { auth } from './firebase.js'
 import { showMessages } from './showMessages.js'
-
+import  {webDomain} from "../main.js"
 
 const signInButton = document.querySelector('#signInButton')
 
@@ -15,7 +15,7 @@ signInButton.addEventListener('click', async () => {
     try{
         const credentials = await signInWithEmailAndPassword(auth, user, password)
         console.log(credentials)
-        
+        window.open(webDomain + '/index.html', '_self');
         showMessages('Welcome '+ credentials.user.email)
     }catch(error) {
         console.log(error)

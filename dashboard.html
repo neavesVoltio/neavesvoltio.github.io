@@ -55,24 +55,24 @@ Francisco Macías para Voltio
           <p>Bienvenida</p>
         </header>
       </section>
-      <!-- Buttons-->
+      <!-- Button Tab-->
       <section>
         <div class="container p-3">
           <ul class="nav justify-content-center nav-tabs">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Productos</a>
+              <a class="nav-link active" aria-current="page"  href="#" id="productosTab">Productos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Reservas</a>
+              <a class="nav-link" href="#" id="reservasTab" >Reservas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contacto</a>
+              <a class="nav-link" href="#" id="contactoTab">Contacto</a>
             </li>
           </ul>
         </div>
       </section>
-      
-      <section>
+<!--    producto section                                -->      
+      <section id="productTabSection">
         <div class="container shadow p-3">
           <div class="form-floating mb-3">
             <input type="text" class="form-control"  id="nombreArticulo" aria-label="nombre" aria-describedby="basic-addon1">
@@ -94,24 +94,31 @@ Francisco Macías para Voltio
           <button class="btn btn-primary" id="addProductButton">Agregar Producto</button>
           
         </div>
-      </section>
-      <section>
-        <div class="container p-3 shadow">
+      
+        <div class="container p-3">
           <div class="input-group m-3 p-3">
             <span class="input-group-text" id="basic-addon1">Buscar producto</span>
             <input type="text" class="form-control p-3" placeholder="nombre del producto" aria-label="nombreProd" aria-describedby="nombre-prod">
           </div>
         </div>
-      </section>
+      
 <!--    card sections                                   --> 
-      <section>
         <div class="container">
-          <div class="row row-cols-lg-5 row-cols-md-4 row-cols-sm-2 g-2" id="productContainer"> 
+          <div class="row row-cols-lg-5 row-cols-md-4 row-cols-sm-2 g-1 p-2" id="productContainer"> 
             
           </div>
         </div>
       </section>
-
+<!--    termina producto sections                                   --> 
+<!--    reservas sections                                   --> 
+      <section id="reservasSection" style="display: none;">
+        <div class="container">
+          <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2 g-1 p-2" id="reservasContainer">
+            
+          </div>
+        </div>
+      </section>
+      
     </div>
 
     <!-- Footer -->
@@ -170,5 +177,8 @@ Francisco Macías para Voltio
     <script type="module"  src="./app/productAdminGetList.js"></script>
     
     <script type="module" src="./main.js"></script>
+    
+    <script type="module" src="./app/dashboardNavigationItems.js"></script>
+    <script src="./app/reservationAdmin.js" type="module"></script>
   </body>
 </html>

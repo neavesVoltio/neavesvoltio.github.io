@@ -1,10 +1,8 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { auth } from './firebase.js'
-import { showMessages } from './showMessages.js'
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
 import { app } from './firebase.js'
-import { calendarioUpdate } from './fullCalendar.js'
+import { showMessages } from './showMessages.js'
 
 // Initialize Firebase
 const db = getFirestore(app) 
@@ -13,7 +11,6 @@ console.log('accessReservactionPage');
 
 reservationButton.addEventListener('click', async (e) =>{
 
-  // no cierra el modal, debe ser aqui el problema
     e.preventDefault()
     
     console.log(e.target.dataset.reservationDate) 
@@ -27,16 +24,18 @@ reservationButton.addEventListener('click', async (e) =>{
             let reserveDate = document.getElementById('start').textContent
             
             let serviceCheck = document.querySelectorAll('.serviceCheck')
-            let services = []
-            serviceCheck.forEach( function(element) {
-              try{
-                services.push(element.attributes[4].value)
-              } catch(error){
-                console.log(error);
-              }
-              
-            })
-    
+                  
+                  let services = []
+                  serviceCheck.forEach( function(element) {
+                    try{
+                      if(element.checked){
+                        services.push(element.attributes[4].value )
+                      }
+                      
+                    } catch(error){
+                      console.log(error);
+                    }})   
+                
             try {
                 const docRef = await addDoc(collection(db, "reservaciones"), {
                   title: nombreCliente,
@@ -57,6 +56,7 @@ reservationButton.addEventListener('click', async (e) =>{
                 var calendar = new FullCalendar.Calendar(calendarEl)
                 calendar.refetchEvents(),
                 calendar.render();
+                showMessages('Tu cita ha sido creada')
               //  userId = docRef.id
               } catch (e) {
                 console.error("Error adding document: ", e);

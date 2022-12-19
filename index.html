@@ -20,6 +20,7 @@
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/fontawesome-all.min.css" />
     <script src="./main.js" type="module"></script>
   </head>
   <body class="landing is-preload">
@@ -54,6 +55,7 @@
             <a
               href="registro.html"
               class="button primary noUserLogged"
+              style="display: none;"
               id="registroButton"
               >Registrate</a
             >
@@ -63,16 +65,12 @@
               href="acceso.html"
               class="button noUserLogged"
               id="ingresaAquiButton"
+              style="display: none;"
               >Ingresa aquí</a
             >
           </li>
           <li>
-            <a
-              href="dashboard.html"
-              class="button adminAccess"
-              id="adminDashboard"
-              >Admin Dashboard</a
-            >
+            
           </li>
         </ul>
       </section>
@@ -99,26 +97,23 @@
         <section class="box special features">
           
           <div class="features-row">
-            <a href="reservacion.html">
-            <section>
-              
-                <span class="icon solid major fa-calendar accent2"></span>
-                <h3>Reserva tu cita</h3>
+              <section>
+                  <span class="icon solid major fa-calendar accent2"></span>
+                  <h3>Reserva tu cita</h3>
+                  <p>
+                    Puedes ver los horarios disponibles y apartar tu cita para el
+                    servicio que deseas
+                  </p>
+              </section>
+              <section href="productos.html">
+                <span class="icon solid major fa-heart accent2"></span>
+                <h3>Los Mejores productos</h3>
                 <p>
-                  Puedes ver los horarios disponibles y apartar tu cita para el
-                  servicio que deseas
+                  Consulta nuestra lista de productos disponibles para ti y que
+                  puedes comprar en nuestras instalaciones
                 </p>
-              
-            </section>
-          </a>
-            <section>
-              <span class="icon solid major fa-heart accent2"></span>
-              <h3>Los Mejores productos</h3>
-              <p>
-                Consulta nuestra lista de productos disponibles para ti y que
-                puedes comprar en nuestras instalaciones
-              </p>
-            </section>
+              </section>
+          
           </div>
           <div class="features-row">
             <section>
@@ -217,6 +212,14 @@
             Pagina oficial:
             <a href="https://www.bombshellbeautyspa.com/" target="_blank"
               >bombshellbeautyspa.com</a
+            >
+          </li>
+          <li>
+            <a
+              href="dashboard.html"
+              class="btn btn-secondary adminAccess"
+              id="adminDashboard"
+              >Admin Dashboard</a
             >
           </li>
         </ul>
