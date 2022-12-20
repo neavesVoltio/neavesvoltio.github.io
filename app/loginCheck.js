@@ -22,8 +22,12 @@ onAuthStateChanged(auth, (user) => {
 export const loginCheck = user => {
     if (user) {
         const noUserLogged = document.querySelectorAll('.noUserLogged')
+        const userLogged = document.querySelectorAll('.userLogged')
+        const userLoggedSub = document.querySelectorAll('.userLoggedSub')
         
         noUserLogged.forEach( link => link.style.display = 'none')
+        userLogged.forEach( link => link.style.display = 'block')
+        userLoggedSub.forEach( link => link.style.display = 'block')
         console.log("user en login check")
         const loginButtonsContainer = document.getElementById('loginButtonsContainer') 
 
@@ -45,7 +49,7 @@ export const loginCheck = user => {
         aIngresaAquiButton.innerHTML = 'Ingresa Aquí'
         
         aLogoutButton.href = '#'
-        aLogoutButton.className = 'button userLogged'
+        aLogoutButton.className = 'button userLogged logoutButton'
         aLogoutButton.id = 'logoutButton'
         aLogoutButton.innerHTML = 'Logout'
     
@@ -64,8 +68,12 @@ export const loginCheck = user => {
     } else {
         console.log("user no en login check")
         const noUserLogged = document.querySelectorAll('.noUserLogged')
+        const userLogged = document.querySelectorAll('.userLogged')
+        const userLoggedSub = document.querySelectorAll('.userLoggedSub')
         
         noUserLogged.forEach( link => link.style.display = 'block')
+        userLogged.forEach( link => link.style.display = 'none')
+        userLoggedSub.forEach( link => link.style.display = 'none')
 
         const loginButtonsContainer = document.getElementById('loginButtonsContainer') 
 

@@ -3,6 +3,7 @@ import { app } from './firebase.js'
 const db = getFirestore(app) 
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { auth } from './firebase.js'
+import { showMessages } from "./showMessages.js";
 
 
 
@@ -131,13 +132,14 @@ import { auth } from './firebase.js'
                   const reservationButton = document.getElementById('reservationButton')
                   if(overlapCount.length >= numberOfEmployees){
                     reservationButton.style.display = 'none'
+                  } else if (overlapCount.length < numberOfEmployees){
+                    reservationButton.style.display = 'block'
+                    reservationButton.dataset.reservationDate = info.dateStr
+                    reservationButton.dataset.reservationDateDay = reservationDateDay
+                    reservationButton.dataset.reservationStartHour = hour
+                    reservationButton.dataset.reservationEndtHour = hour + 2
+                    reservationButton.dataset.services = services
                   }
-                  reservationButton.dataset.reservationDate = info.dateStr
-                  reservationButton.dataset.reservationDateDay = reservationDateDay
-                  reservationButton.dataset.reservationStartHour = hour
-                  reservationButton.dataset.reservationEndtHour = hour + 2
-                  reservationButton.dataset.services = services
-              
                   if(today <= date){
                     myModal.show()
                   }
@@ -153,7 +155,9 @@ import { auth } from './firebase.js'
             calendar.render();
               
           } else {
-              console.log('user is not logged')
+              console.log('user is not logged on calendar')
+              showMessages('Inicia sesión para ver y crear una cita', 'error')
+              return
           }
           });
 

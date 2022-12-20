@@ -7,7 +7,6 @@ import { showMessages } from './showMessages.js'
 // Initialize Firebase
 const db = getFirestore(app) 
 const reservationButton = document.getElementById('reservationButton')
-console.log('accessReservactionPage');
 
 reservationButton.addEventListener('click', async (e) =>{
 
