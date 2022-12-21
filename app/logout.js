@@ -15,7 +15,7 @@ try{
 }
 
 export function logOut(){   
-    console.log("logut function")
+    console.log("logout function")
     const logoutButton = document.querySelector('.userLogged')
     
     logoutButton.addEventListener('click', async () => {

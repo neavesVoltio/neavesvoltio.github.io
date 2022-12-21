@@ -13,7 +13,7 @@ if (user) {
   const allData = querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
    //console.log(doc.id, ' => ', doc.data());
-   console.log('start');
+    // console.log('start');
    let today = new Date()
    let newDate = new Date(doc.data().start)
    if(today>newDate){
@@ -23,7 +23,7 @@ if (user) {
    let minutes = newDate.getMinutes() < 10 ?  '0'+ newDate.getMinutes() : newDate.getMinutes()
    let date = newDate.getDate() + '/' + newDate.getMonth() + '/' + newDate.getFullYear() + ' ' + hours+':'+minutes+' hrs'
    let services = doc.data().services;
-    try {services.forEach(e => console.log(e))} catch(error){console.log(error);}
+   // try {services.forEach(e => console.log(e))} catch(error){console.log(error);}
    
     //for(i=0, i < doc.data().services.length(), i++){
      // services.push(...doc.data().services)

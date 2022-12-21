@@ -2,7 +2,7 @@ const noUserLogged = document.querySelectorAll('.noUserLogged')
 const userLogged = document.querySelectorAll('.userLogged')
 const usuarioEnTitulo = document.querySelector('#usuarioEnTitulo')
 import { logOut } from './logout.js'
-
+import { webDomain } from "../main.js"
 let username
 
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
@@ -10,10 +10,22 @@ import { auth } from './firebase.js'
 
 
 onAuthStateChanged(auth, (user) => {
+    var currentHostname = window.location.pathname;
     if (user) {
+        console.log(user.email);
+        console.log(currentHostname);
         username = user.displayName
+        console.log(username);
+        if(currentHostname == '/dashboard.html' && user.email !== 'neaves@voltio.us'){
+            window.open(webDomain + '/index.html', '_self');
+        }
+        return
     } else {
         
+        if(currentHostname == '/dashboard.html'){
+            window.open(webDomain + '/index.html', '_self');
+        }
+
         console.log('user is not logged')
     }
     });
@@ -28,7 +40,6 @@ export const loginCheck = user => {
         noUserLogged.forEach( link => link.style.display = 'none')
         userLogged.forEach( link => link.style.display = 'block')
         userLoggedSub.forEach( link => link.style.display = 'block')
-        console.log("user en login check")
         const loginButtonsContainer = document.getElementById('loginButtonsContainer') 
 
         let liUserEnTitulo = document.createElement("li")
@@ -66,7 +77,6 @@ export const loginCheck = user => {
        
 
     } else {
-        console.log("user no en login check")
         const noUserLogged = document.querySelectorAll('.noUserLogged')
         const userLogged = document.querySelectorAll('.userLogged')
         const userLoggedSub = document.querySelectorAll('.userLoggedSub')
