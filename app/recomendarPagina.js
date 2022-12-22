@@ -16,9 +16,13 @@ recomendationButton.addEventListener('click', async (e) =>{
             let nombreCliente = user.displayName
             let email = user.email
             let userAuthId = user.uid
+            let regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
             if( !emailRecomendation.value ){
                 showMessages('Ingrese una dirección de correo', 'error')
                 return
+            } if (!regex.test(emailRecomendation.value)) {
+              showMessages('Correo invalido', 'error')
+              return
             }
             try {
                 const docRef = await addDoc(collection(db, "recomendaciones"), {

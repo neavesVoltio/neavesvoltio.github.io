@@ -12,8 +12,6 @@ import { showMessages } from "./showMessages.js";
       const myModal = new bootstrap.Modal(document.getElementById('setDateModal', {
         keyboard: false
       }))
-
-      const selectedModal = document.getElementById('setDateModal')
       
       export const calendarioUpdate = document.addEventListener('DOMContentLoaded', async function() {
         onAuthStateChanged(auth, async (user) => {
@@ -156,7 +154,7 @@ import { showMessages } from "./showMessages.js";
               
           } else {
               console.log('user is not logged on calendar')
-              showMessages('Inicia sesión para ver y crear una cita', 'error')
+              showMessages('Inicia sesión para ver y crear una cita', 'info')
               return
           }
           });

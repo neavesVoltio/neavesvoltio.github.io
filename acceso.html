@@ -21,6 +21,7 @@ Francisco Macías para Voltio
 		  content="width=device-width, initial-scale=1, user-scalable=no"
 		/>
 		<link rel="stylesheet" href="./css/main.css" />
+		<script src="https://kit.fontawesome.com/c259cdd56c.js" crossorigin="anonymous"></script>
 		
 	  </head>
 	<body class="is-preload">
@@ -69,7 +70,7 @@ Francisco Macías para Voltio
 										   Ingresar con google
 									</button>
 								</div>
-                           <li><a href="#">Olvide mi password</a></li>
+                           <li><a href="#" id="forgotPasswordButton">Olvide mi password</a></li>
                          <br />
                            <li><a href="registro.html">Inicia tu registro aquí</a></li>
 							</div>
@@ -91,6 +92,31 @@ Whatsapp</span></a></li>
 				</footer>
 
 		</div>
+		<div class="modal fade" id="forgotPassword" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="myModal" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title">Olvidó la contraseña?</h5>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+				  </button>
+				</div>
+				<form id="formularioPassword">
+				  <div class="modal-body">
+					  <div class="form-floating mb-3">
+						<div class="input-group mb-3">
+							<span class="input-group-text" for="emailToRecover">email:</span>
+							<input type="email" class="form-control" placeholder="ingresa tu email.." aria-label="email" aria-describedby="email" id="emailToRecover">
+						</div>
+					  </div>
+				  </div>
+				  <div class="modal-footer">
+					  <button class="btn btn-primary" id="getPassword" style="color: antiquewhite; background-color: violet; border-color: violet;">Obtener contraseña</button>
+				  </div>
+				</form>
+				 
+			  </div>
+			</div>
+		  </div>
 
 		<!-- Scripts -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -111,6 +137,7 @@ Whatsapp</span></a></li>
 		<script type="module" src="./app/signinForm.js"></script>
 		<script src="./main.js" type="module"></script>
 		<script src="./js/sweetAlert.js"></script>
+		<script src="./app/forgotPassword.js" type="module"></script>
 
 	</body>
 </html>

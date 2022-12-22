@@ -3,6 +3,7 @@ const userLogged = document.querySelectorAll('.userLogged')
 const usuarioEnTitulo = document.querySelector('#usuarioEnTitulo')
 import { logOut } from './logout.js'
 import { webDomain } from "../main.js"
+import { showMessages } from './showMessages.js'
 let username
 
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
@@ -18,6 +19,7 @@ onAuthStateChanged(auth, (user) => {
         console.log(username);
         if(currentHostname == '/dashboard.html' && user.email !== 'neaves@voltio.us'){
             window.open(webDomain + '/index.html', '_self');
+            showMessages('Solo administradores', 'error')
         }
         return
     } else {

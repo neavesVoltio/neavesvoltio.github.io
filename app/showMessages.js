@@ -10,11 +10,12 @@ export function showMessages(messages, type='success'){
       text: messages,
       icon: type,
       timer: 1500,
-      position: 'bottom-end',
+      position: 'bottom-start',
       showConfirmButton: false,
     })
   } else {
-    onAuthStateChanged(auth, async (user) => {
+    const user = auth.currentUser;
+    console.log(user);
       if (user) {
         Swal.fire({
           text: messages,
@@ -23,7 +24,8 @@ export function showMessages(messages, type='success'){
           position: 'bottom-end',
           showConfirmButton: false,
         })
-      } else {
+        return
+      } else if(!user){
         Swal.fire({
           text: messages,
           showDenyButton: true,
@@ -55,7 +57,7 @@ export function showMessages(messages, type='success'){
         }) 
     
       }
-    }) 
+    
   }
   
 }
