@@ -1,3 +1,5 @@
+import {  getReservas } from './reservationAdmin.js'
+//cancelarReserva,
 let productosTab = document.getElementById("productosTab")
 let reservasTab = document.getElementById("reservasTab")
 let contactoTab = document.getElementById("contactoTab")
@@ -20,6 +22,8 @@ reservasTab.addEventListener("click", function () {
     contactoTab.className = "nav-link"
     productTabSection.style.display = "none"
     reservasSection.style.display = "block"
+    getReservas('asc', 'proceso')
+    //cancelarReserva()
 })
 
 contactoTab.addEventListener("click", function () {

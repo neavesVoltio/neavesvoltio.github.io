@@ -24,8 +24,10 @@ import { showMessages } from "./showMessages.js";
             let pullData = []
             const allData = querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-             let title = doc.data().title === user.displayName ? doc.data().title : 'Reservado'
-             let color = doc.data().title === user.displayName ? '#CDA556' : '#815A00'
+            console.log(doc.data().userAuth);
+            console.log(user.uid);
+             let title = doc.data().userAuth === user.uid ? doc.data().title : 'Reservado'
+             let color = doc.data().userAuth === user.uid ? '#CDA556' : '#815A00'
               pullData.push({title: title, start: doc.data().start , color: color})
             })
            // console.log(pullData)

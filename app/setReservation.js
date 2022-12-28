@@ -17,7 +17,7 @@ reservationButton.addEventListener('click', async (e) =>{
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             console.log('usuario logueado setReservation');
-            let nombreCliente = user.displayName
+            let nombreCliente = user.displayName == null ? user.email : user.displayName
             let email = user.email
             let userAuthId = user.uid
             let reserveDate = document.getElementById('start').textContent
@@ -44,7 +44,8 @@ reservationButton.addEventListener('click', async (e) =>{
                   endTime: parseFloat(e.target.dataset.reservationEndtHour),
                   reservationStartHour: parseFloat(e.target.dataset.reservationStartHour),
                   reservationDateDay: e.target.dataset.reservationDateDay,
-                  services: services
+                  services: services,
+                  estatus: ''
                   
                 });
 
