@@ -3,7 +3,7 @@ import { showMessages } from './showMessages.js'
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
 import { app } from './firebase.js'
-import { productos } from './productAdminGetList.js'
+
 
 const db = getFirestore(app) 
 

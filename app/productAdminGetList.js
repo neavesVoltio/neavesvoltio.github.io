@@ -1,70 +1,176 @@
-import { getFirestore, doc, getDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
+import { getFirestore, doc, getDoc, collection, getDocs, query, where, deleteDoc, orderBy, updateDoc  } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
 import { app } from './firebase.js'
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { auth } from './firebase.js'
+
 const db = getFirestore(app) 
-
-export const productos = query(collection(db, 'productos'));
-            //query(collection(db, 'reservaciones'), where('email', '==', user.email));
-            const querySnapshot = await getDocs(productos);
+getProductos()
+export function getProductos(){
+    let mainDiv = document.getElementById('productContainer')
+    mainDiv.innerHTML=''
+    onAuthStateChanged(auth, async (user) => {
+        if (user) { 
+            const productos = query(collection(db, 'productos'))
+            const querySnapshot = await getDocs(productos)
             const allData = querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-              // console.log(doc.id, ' => ', doc.data());
-
-              let mainDiv = document.getElementById('productContainer')
-              let divCol = document.createElement('div')
-              let divCard = document.createElement('div')
-              let img = document.createElement('img')
-              let divBody = document.createElement('div')
-              let h3ProductTitle = document.createElement('h3')
-              let pProductDesc = document.createElement('p')
-              let divProductprice = document.createElement('div')
-              let spanMoneySign = document.createElement('span')
-              let inputProductPrice = document.createElement('input')
-              let spanMoneyCero = document.createElement('span')
-              let divFormFloating = document.createElement('div')
-              let inputInventario = document.createElement('input')
-              let labelInventario = document.createElement('label')
-              let divCardFooter = document.createElement('div')
-              let aEliminarButton = document.createElement('a')
-              let aGuardarButton = document.createElement('a')
-
-              divCol.className = 'col'; divCard.className = 'card shadow col'; img.className = 'card-img-top'; divBody.className = 'card-body'
-              spanMoneySign.className = 'input-group-text'; spanMoneyCero.className = 'input-group-text'; inputProductPrice.className = 'form-control'
-              h3ProductTitle.className = 'card-title'; pProductDesc.className = 'card-text'; divProductprice.className = 'input-group mb-3 p-2'
-              divFormFloating.className = 'form-floating mb-3 p-2'; inputInventario.className = 'form-control inputInventario'
-              divCardFooter.className = 'card-footer'; aEliminarButton.className = 'card-link'; aGuardarButton.className = 'card-link'
-              divCard.style.width = '100%'; divCard.style.height = '100%'
-              inputProductPrice.type = 'number'
-              img.src = 'https://images.hattons.co.uk/products340pxwide/noimageavailable.jpg'; img.alt = '...'
-              inputInventario.type = 'number'; inputInventario.id = 'productId'
-              labelInventario.for = 'productId'
-              aEliminarButton.href = '#'; aEliminarButton.textContent = 'Eliminar'
-              aGuardarButton.href = '#'; aGuardarButton.textContent = 'Guardar'
-              h3ProductTitle.textContent = doc.data().nombreArticulo
-              pProductDesc.textContent = doc.data().descripcionArticulo  
-              inputProductPrice.value = doc.data().precioArticulo
-              inputInventario.value = doc.data().inventarioActual
-              spanMoneySign.textContent = '$'
-              labelInventario.textContent = 'Inventario'
-
-              mainDiv.appendChild(divCol)
-              divCol.append(divCard)
-              divCard.append(img)
-              divCard.append(divBody)
-              divCard.append(divFormFloating)
-              divCard.append(divProductprice)
-              divCard.append(divCardFooter)
-              divBody.appendChild(h3ProductTitle)
-              divBody.appendChild(pProductDesc)
-              divFormFloating.appendChild(inputInventario)
-              divFormFloating.appendChild(labelInventario)
-              divCardFooter.appendChild(aEliminarButton)
-              divCardFooter.appendChild(aGuardarButton)
-              divProductprice.appendChild(spanMoneySign)
-              divProductprice.appendChild(inputProductPrice)
-
-
-
+                let divCol = document.createElement('div')
+                let divCard = document.createElement('div')
+                let img = document.createElement('img')
+                let divBody = document.createElement('div')
+                let h3ProductTitle = document.createElement('h3')
+                let pProductDesc = document.createElement('p')
+                let divProductprice = document.createElement('div')
+                let spanMoneySign = document.createElement('span')
+                let inputProductPrice = document.createElement('input')
+                let spanMoneyCero = document.createElement('span')
+                let divFormFloating = document.createElement('div')
+                let inputInventario = document.createElement('input')
+                let labelInventario = document.createElement('label')
+                let divCardFooter = document.createElement('div')
+                let aEliminarButton = document.createElement('a')
+        
+                divCol.className = 'col'; 
+                divCard.className = 'card shadow col'; 
+                img.className = 'card-img-top'; 
+                divBody.className = 'card-body'
+                spanMoneySign.className = 'input-group-text'; 
+                spanMoneyCero.className = 'input-group-text'; 
+                inputProductPrice.className = 'form-control inputProductPrice'
+                h3ProductTitle.className = 'card-title'; 
+                pProductDesc.className = 'card-text'; 
+                divProductprice.className = 'input-group mb-3 p-2'
+                divFormFloating.className = 'form-floating mb-3 p-2'; 
+                inputInventario.className = 'form-control inputInventario'
+                divCardFooter.className = 'card-footer'; 
+                aEliminarButton.className = 'card-link aEliminarButton'; 
+                divCard.style.width = '100%'; 
+                divCard.style.height = '100%'
+                inputProductPrice.type = 'number'
+                img.src = 'https://images.hattons.co.uk/products340pxwide/noimageavailable.jpg'; 
+                img.alt = '...'
+                inputInventario.type = 'number'; 
+                inputInventario.id = 'productId'
+                labelInventario.for = 'productId'
+                aEliminarButton.href = '#'; 
+                aEliminarButton.textContent = 'Eliminar'
+                aEliminarButton.dataset.productId = doc.id
+                h3ProductTitle.textContent = doc.data().nombreArticulo
+                pProductDesc.textContent = doc.data().descripcionArticulo  
+                inputProductPrice.value = doc.data().precioArticulo
+                inputProductPrice.dataset.productId = doc.id
+                inputInventario.value = doc.data().inventarioActual
+                inputInventario.dataset.productId = doc.id
+                spanMoneySign.textContent = '$'
+                labelInventario.textContent = 'Inventario'
+        
+                mainDiv.appendChild(divCol)
+                divCol.append(divCard)
+                divCard.append(img)
+                divCard.append(divBody)
+                divCard.append(divFormFloating)
+                divCard.append(divProductprice)
+                divCard.append(divCardFooter)
+                divBody.appendChild(h3ProductTitle)
+                divBody.appendChild(pProductDesc)
+                divFormFloating.appendChild(inputInventario)
+                divFormFloating.appendChild(labelInventario)
+                divCardFooter.appendChild(aEliminarButton)
+                divProductprice.appendChild(spanMoneySign)
+                divProductprice.appendChild(inputProductPrice)
             })
+            
+            let productPrice = document.querySelectorAll('.inputProductPrice')
+            let inputInventario = document.querySelectorAll('.inputInventario')
+            let aEliminarButton = document.querySelectorAll('.aEliminarButton')
+
+            productPrice.forEach( btn => {
+                btn.addEventListener('blur', async(e) =>{
+                    let productId = e.target.dataset.productId
+                    const docRef = doc(db, 'productos', productId)
+                    await updateDoc( (docRef), {
+                        precioArticulo: btn.value
+                    }).then( () => {
+                        Swal.fire({
+                            text:'Precio actualizado',
+                            icon:'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                            position: 'bottom-end',
+                          })
+                    }).catch((error) => {
+                        console.log(error);
+                    })
+                })
+            })
+
+            inputInventario.forEach( btn => {
+                btn.addEventListener('blur', async(e) =>{
+                    let productId = e.target.dataset.productId
+                    const docRef = doc(db, 'productos', productId)
+                    await updateDoc( (docRef), {
+                        inventarioActual: btn.value
+                    }).then( () => {
+                        Swal.fire({
+                            text:'Inventario actualizado',
+                            icon:'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                            position: 'bottom-end',
+                          })
+                    }).catch((error) => {
+                        console.log(error);
+                    })
+                })
+            })
+
+            aEliminarButton.forEach( btn  => {
+                btn.addEventListener('click', async (e) => {
+                    console.log('click eliminar');
+                  Swal.fire({
+                    title: 'Desea eliminar este producto?',
+                    showDenyButton: true,
+                    showCancelButton: false,
+                    confirmButtonText: 'Regresar',
+                    denyButtonText: `Eliminar`,
+                  }).then(async(result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                      Swal.fire({
+                        text:'El producto no se ha eliminado',
+                        icon: 'info',  
+                        timer: 2000,
+                        showConfirmButton: false,
+                        position: 'bottom-end',
+                      })
+                    } else if (result.isDenied) {
+                      
+                        let productId = e.target.dataset.productId
+                      //const reservation = query(collection(db, 'reservaciones'), where('start', '==', e.target.dataset.startDate));
+                      //const querySnapshot = await getDocs(reservation);
+                      const docRef = doc(db, "productos", productId) 
+                      await deleteDoc(docRef);
+                      getProductos()
+                      Swal.fire({
+                        text:'Producto eliminado',
+                        icon:'success',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        position: 'bottom-end',
+                      })
+                      return
+                    }
+                  })
+                  
+                })
+              })
+
+        } else {
+            console.log('no user logged');
+        }
+    }) 
+}
+
+
 /*
 <div class="col"> // divCol
     <div class="card shadow col" style="width: 100%; height: 100%;"> // divCard

@@ -29,13 +29,17 @@ contactButton.addEventListener('click', async (e) =>{
             showMessages('Todos los campos son requeridos', 'error')
             return
         } else {
-            
+            let newDate = new Date()
+            let hours = newDate.getHours() < 10 ?  '0'+ newDate.getHours() : newDate.getHours()
+            let minutes = newDate.getMinutes() < 10 ?  '0'+ newDate.getMinutes() : newDate.getMinutes()
+            let date = newDate.getDate() + '/' + newDate.getMonth() + '/' + newDate.getFullYear() + ' ' + hours+':'+minutes+' hrs'
             const docRef = await addDoc(collection(db, "contacto"),{
                 Nombre: name.value,
                 asunto: subject.value,
                 email: email.value,
                 mensaje: message.value,
-                fecha: new Date()
+                fecha: date,
+                estatus: 'porContactar'
             })
             showMessages('Mensaje enviado')
             name.value = ''
