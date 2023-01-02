@@ -31,7 +31,7 @@ export function getProductos(){
         
                 divCol.className = 'col'; 
                 divCard.className = 'card shadow col'; 
-                img.className = 'card-img-top'; 
+                img.className = 'card-img-top p-2'; 
                 divBody.className = 'card-body'
                 spanMoneySign.className = 'input-group-text'; 
                 spanMoneyCero.className = 'input-group-text'; 
@@ -46,7 +46,7 @@ export function getProductos(){
                 divCard.style.width = '100%'; 
                 divCard.style.height = '100%'
                 inputProductPrice.type = 'number'
-                img.src = 'https://images.hattons.co.uk/products340pxwide/noimageavailable.jpg'; 
+                img.src = doc.data().imageURL
                 img.alt = '...'
                 inputInventario.type = 'number'; 
                 inputInventario.id = 'productId'

@@ -51,6 +51,8 @@ export const loginCheck = user => {
         let aUsuarioEnTitulo = document.createElement("a")
         let aIngresaAquiButton = document.createElement("a")
         let aLogoutButton = document.createElement("a")
+        let aShoppingCart = document.createElement("a")
+        let spanIcon = document.createElement('span')
     
         aUsuarioEnTitulo.className = 'p-2'
         aUsuarioEnTitulo.id = 'usuarioEnTitulo'
@@ -65,13 +67,26 @@ export const loginCheck = user => {
         aLogoutButton.className = 'button userLogged logoutButton'
         aLogoutButton.id = 'logoutButton'
         aLogoutButton.innerHTML = 'Logout'
+
+        aShoppingCart.href = webDomain + '/comprar.html' 
+        aShoppingCart.className = 'btn btn-warning aShoppingCart text-dark'
+        aShoppingCart.id = 'aShoppingCart'
+        aShoppingCart.innerHTML = ''
+        aShoppingCart.setAttribute("data-bs-toggle", "tooltip");
+        aShoppingCart.setAttribute("data-bs-placement", "bottom");
+        aShoppingCart.setAttribute("title", "Ir al carrito de compras");
+
+        spanIcon.className = 'material-symbols-outlined'
+        spanIcon.textContent = 'shopping_cart'
     
         loginButtonsContainer.append(liUserEnTitulo)
         loginButtonsContainer.append(liIngresaAquiButton)
         loginButtonsContainer.append(liLogoutButton)
         liUserEnTitulo.appendChild(aUsuarioEnTitulo)
+        liUserEnTitulo.appendChild(aShoppingCart)
        // liIngresaAquiButton.appendChild(aIngresaAquiButton)
         liLogoutButton.appendChild(aLogoutButton)
+        aShoppingCart.appendChild(spanIcon)
         
         
 
