@@ -68,7 +68,7 @@ Francisco Macías para Voltio
       <!-- Table -->
       <!--    reservas sections                                   --> 
       <section id="shoppingCartSection">
-        <div class="row container" id="shoppingCartContainer">
+        <div class="row container" >
           <div class="col-md-5 col-lg-4 order-md-last">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
               <span>Resumen de la orden</span>
@@ -76,22 +76,18 @@ Francisco Macías para Voltio
             <ul class="list-group mb-3">
               <li class="list-group-item d-flex justify-content-between lh-sm">
                 <span>Subtotal</span>
-                <span>$ 180</span>
+                <span class="spanPriceSubtotal"></span>
               </li>
               <li class="list-group-item d-flex justify-content-between lh-sm">
-                <span>IVA</span>
-                <span>$ 35</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between lh-sm">
-                <span>Codigo de descuento</span>
-                <span> - $ 35</span>
+                <span>Descuento</span>
+                <span></span>
               </li>
               <li class="list-group-item d-flex justify-content-between lh-sm bg-dark">
                 <span></span>
               </li>
               <li class="list-group-item d-flex justify-content-between lh-sm">
                 <span>TOTAL</span>
-                <span>$ 180</span>
+                <span class="totalPrice"></span>
               </li>
               <li class="list-group-item">
                 <div class="d-grid gap-2">
@@ -103,49 +99,10 @@ Francisco Macías para Voltio
           <div class="col-md-7 col-lg-8">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
               <span>Mis productos</span>
-              <span class="badge bg-primary rounded-pill">3</span>
+              <span class="badge bg-primary rounded-pill badgeProd"></span>
             </h4>
-            <ul class="list-group mb-3">
-              <li class="list-group-item d-flex justify-content-between lh-sm align-items-center">
-                <img src="https://firebasestorage.googleapis.com/v0/b/bombshell-dcf3d.appspot.com/o/images%2Fshampoo.jpeg?alt=media&token=b2e9e333-acfb-4cd4-9f12-2b3989e228a8" alt="" height="100px">
-                <div>
-                  <h4 class="my-0">
-                    Nombre del producto
-                  </h4>
-                  <h6 class="text-muted">
-                    Descripcion del producto
-                  </h6>
-                </div>
-                <span class="text-muted">$ 500</span>
-                <button class="btn btn-transparent" data-bs-toggle='tooltip' data-bs-placement="bottom" title="Remover producto">x</button>
-              </li>
-              <li class="list-group-item d-flex justify-content-between lh-sm align-items-center">
-                <img src="https://firebasestorage.googleapis.com/v0/b/bombshell-dcf3d.appspot.com/o/images%2Fshampoo.jpeg?alt=media&token=b2e9e333-acfb-4cd4-9f12-2b3989e228a8" alt="" height="100px">
-                <div>
-                  <h4 class="my-0">
-                    Nombre del producto
-                  </h4>
-                  <h6 class="text-muted">
-                    Descripcion del producto
-                  </h6>
-                </div>
-                <span class="text-muted">$ 500</span>
-                <button class="btn btn-transparent" data-bs-toggle='tooltip' data-bs-placement="bottom" title="Remover producto">x</button>
-              </li>
-              <li class="list-group-item d-flex justify-content-between lh-sm align-items-center">
-                <img src="https://firebasestorage.googleapis.com/v0/b/bombshell-dcf3d.appspot.com/o/images%2Fshampoo.jpeg?alt=media&token=b2e9e333-acfb-4cd4-9f12-2b3989e228a8" alt="" height="100px">
-                <div>
-                  <h4 class="my-0">
-                    Nombre del producto
-                  </h4>
-                  <h6 class="text-muted">
-                    Descripcion del producto
-                  </h6>
-                </div>
-                <span class="text-muted">$ 500</span>
-                <button class="btn btn-transparent" data-bs-toggle='tooltip' data-bs-placement="bottom" title="Remover producto">x</button>
-              </li>
-              
+            <ul class="list-group mb-3" id="shoppingCartContainer">
+                            
             </ul>
           </div>
          </div>
@@ -210,5 +167,6 @@ Francisco Macías para Voltio
     <script type="module" src="./app/products.js"></script>
     <script type="module" src="./app/shoppingCart.js"></script>
     <script src="./js/sweetAlert.js"></script>
+    <script src="./js/lodash.js"></script>
   </body>
 </html>

@@ -92,8 +92,7 @@ export function getProductsShopping(){
                                 Swal.fire({
                                     text:'Producto agregado al carrito',
                                     icon:'success',
-                                    timer: 2000,
-                                    showConfirmButton: false,
+                                    showConfirmButton: true, 
                                     position: 'bottom-end',
                                 })
                             }).catch((error) => {

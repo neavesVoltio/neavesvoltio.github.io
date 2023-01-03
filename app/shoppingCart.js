@@ -1,5 +1,120 @@
-import { getFirestore, doc, getDoc, collection, getDocs, query, where, deleteDoc, orderBy, updateDoc  } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
+import { getFirestore, 
+    doc, 
+    getDoc, 
+    collection, 
+    getDocs, 
+    query, 
+    where, 
+    deleteDoc, 
+    orderBy, 
+    updateDoc,
+    addDoc  } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
 import { app } from './firebase.js'
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { auth } from './firebase.js'
+ 
+const db = getFirestore(app) 
+getShoppingCart()
+function getShoppingCart(){
+    console.log('shopping cart section');
+    let mainDiv = document.getElementById('shoppingCartContainer')
+    mainDiv.innerHTML = ''
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            console.log(user.uid);
+            const shippingCart = query(collection(db, 'shoppingCart'),
+                                        where("userAuthId", "==", user.uid))
+            const querySnapshot = await getDocs(shippingCart)
+            let productCount = []
+            const allData = querySnapshot.forEach((doc) => {
+                let liContainer = document.createElement('li')
+                let imgContainer = document.createElement('img')
+                let divTitle = document.createElement('div')
+                let h4ProductName = document.createElement('h4')
+                let h6ProductDescription = document.createElement('h6')
+                let spanPrice = document.createElement('span')
+                let btnRemoveProduct = document.createElement('button')
+                
+                liContainer.className = 'list-group-item d-flex justify-content-between lh-sm align-items-center'
+                imgContainer.src = doc.data().imageURL
+                imgContainer.alt = doc.data().nombreArticulo
+                imgContainer.style.height = '100px'
+                h4ProductName.className = 'my-0'
+                h6ProductDescription.className = 'text-muted'
+                spanPrice.className = 'text-muted'
+                btnRemoveProduct.className = 'btn btn-transparent text-muted btnRemoveProduct'
+                btnRemoveProduct.setAttribute('data-bs-toggle', 'tooltip')
+                btnRemoveProduct.setAttribute('data-bs-placement', 'bottom')
+                btnRemoveProduct.setAttribute('title', 'Remover producto')
+                btnRemoveProduct.textContent = 'X'
+                btnRemoveProduct.dataset.docId = doc.id
 
+                h4ProductName.textContent = doc.data().nombreArticulo
+                h6ProductDescription.textContent = doc.data().descripcionArticulo
+                spanPrice = parseFloat(doc.data().precioArticulo).toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  })
+
+                mainDiv.appendChild(liContainer)
+                liContainer.append(imgContainer)
+                liContainer.append(divTitle)
+                divTitle.appendChild(h4ProductName)
+                divTitle.appendChild(h6ProductDescription)
+                liContainer.append(spanPrice)
+                liContainer.append(btnRemoveProduct)
+                productCount.push(parseFloat(doc.data().precioArticulo))
+
+            });
+
+            let productSum = _.sum(productCount)
+            
+            let badgeProd = document.querySelector('.badgeProd')
+            let spanPriceSubtotal = document.querySelector('.spanPriceSubtotal')
+            let totalPrice = document.querySelector('.totalPrice')
+            let btnRemoveProduct = document.querySelectorAll('.btnRemoveProduct')
+
+            badgeProd.textContent = productCount.length
+            spanPriceSubtotal.textContent = productSum.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              })
+            totalPrice.textContent =   parseFloat(productSum + 0).toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              }) 
+
+            console.log(btnRemoveProduct);
+            btnRemoveProduct.forEach( btn => {
+                btn.addEventListener('click', async (e) => {
+                    let docId = e.target.dataset.docId
+                    const docRef = doc(db, "shoppingCart", docId) 
+                    await deleteDoc(docRef);
+                    getShoppingCart()
+                })
+            })
+
+              
+        } else {
+            console.log('no user logged');
+        }
+    })
+} 
+/*
+<li class="list-group-item d-flex justify-content-between lh-sm align-items-center"> //liContainer
+<img src="" alt="" height="100px">
+<div>                               // divTitle
+    <h4 class="my-0">               // h4ProductName
+    Nombre del producto
+    </h4>
+    <h6 class="text-muted">         // h6ProductDescription
+    Descripcion del producto
+    </h6>
+</div>
+<span class="text-muted">$ 500</span>  // spanPrice
+<button class="btn btn-transparent"   // btnRemoveProduct
+data-bs-toggle='tooltip' 
+data-bs-placement="bottom" 
+title="Remover producto">x</button>
+</li>
+*/
