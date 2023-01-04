@@ -42,7 +42,7 @@ adminDashboard.addEventListener('click', async (e) =>{
               confirmButtonColor: '#3C8BF2',
               denyButtonText: `Iniciar con email`,
               denyButtonColor:'#007172',
-              icon: type,
+              icon: "alert",
               customClass: {
                 denyButton: 'color: #fffff'
               }
