@@ -35,7 +35,7 @@ adminDashboard.addEventListener('click', async (e) =>{
             
         } else {
             Swal.fire({
-              text: messages,
+              text: "Favor de iniciar sesión para poder recomendar",
               showDenyButton: true,
               showCancelButton: true,
               confirmButtonText: 'Iniciar con Google',
