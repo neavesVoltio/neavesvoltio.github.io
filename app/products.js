@@ -12,6 +12,7 @@ import { getFirestore,
 import { app } from './firebase.js'
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { auth } from './firebase.js'
+import { webDomain } from "../main.js"
  
 const db = getFirestore(app) 
 getProductsShopping()
@@ -19,6 +20,8 @@ export function getProductsShopping(){
     console.log('product shopping');
     let mainDiv = document.getElementById('productosContainer')
     mainDiv.innerHTML=''
+    let aShoppingCart = document.querySelector('.aShoppingCart ')
+    aShoppingCart.href = webDomain + '/comprar.html' 
     onAuthStateChanged(auth, async (user) => {
         if (user) { 
             const productos = query(collection(db, 'productos'))

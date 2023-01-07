@@ -41,6 +41,8 @@ onAuthStateChanged(auth, async (user) => {
   if (user) {
     
     let orderByStat = stat
+    console.log('estatus' +estatus);
+    console.log('start' + stat);
     const reserva = query(collection(db, 'reservaciones'), where('estatus', '==', estatus), orderBy("start", stat));
     //query(collection(db, 'reservaciones'), where('email', '==', user.email));
     const querySnapshot = await getDocs(reserva);
@@ -220,9 +222,7 @@ onAuthStateChanged(auth, async (user) => {
 
     persona.forEach( btn => {
       btn.addEventListener('change', async(e)=>{
-        console.log('cambia select');
         let reservationId = e.target.dataset.reservationId
-        console.log(reservationId);
         const docRef = doc(db, "reservaciones", reservationId) 
         await updateDoc ((docRef), {
           empleado: btn.value

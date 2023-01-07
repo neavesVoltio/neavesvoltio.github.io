@@ -4,22 +4,41 @@ const usuarioEnTitulo = document.querySelector('#usuarioEnTitulo')
 import { logOut } from './logout.js'
 import { webDomain } from "../main.js"
 import { showMessages } from './showMessages.js'
+import { getFirestore, 
+    doc, 
+    getDoc, 
+    collection, 
+    getDocs, 
+    query, 
+    where, 
+    deleteDoc, 
+    orderBy, 
+    updateDoc,
+    addDoc  } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
 let username
-
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { auth } from './firebase.js'
+import { app } from './firebase.js'
+const db = getFirestore(app) 
 
-
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async(user) => {
     var currentHostname = window.location.pathname;
     if (user) {
         console.log(user.email);
-        console.log(currentHostname);
         username = user.displayName
-        console.log(username);
-        if(currentHostname == '/dashboard.html' && user.email !== 'neaves@voltio.us'){
+        let uid = user.uid
+        let getAdmin = []
+        
+        const users = query(collection(db, 'adminData'), where('name', '==', uid))
+        const querySnapshot = await getDocs(users)
+        const allData = querySnapshot.forEach((doc) => {
+            getAdmin.push(doc.data().name)
+        });
+        
+        if(currentHostname == '/dashboard.html' && uid !== getAdmin[0]){
             window.open(webDomain + '/index.html', '_self');
             showMessages('Solo administradores', 'error')
+            
         }
         return
     } else {
@@ -28,7 +47,7 @@ onAuthStateChanged(auth, (user) => {
             window.open(webDomain + '/index.html', '_self');
         }
 
-        console.log('user is not logged')
+        console.log('user is not logged loginCheck.js')
     }
     });
 

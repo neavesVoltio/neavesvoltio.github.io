@@ -44,7 +44,6 @@ addProductButton.addEventListener('click', async (e) => {
                     uploadBytes(imagesRef, file).then((snapshot) => {
                         console.log('Uploaded a blob or file!');
                         imageURL = getDownloadURL(snapshot.ref).then(  async (downloadURL) => {
-                            console.log('File available at', downloadURL);
                             const docRef = await addDoc(collection(db, 'productos'),{
                                 nombreArticulo: nombreArticulo.value,
                                 precioArticulo: precioArticulo.value,

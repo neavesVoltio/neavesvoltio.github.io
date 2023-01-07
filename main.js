@@ -4,7 +4,8 @@ import { loginCheck } from './app/loginCheck.js'
 
 
 import './app/logout.js'
-export let webDomain = "https://neavesvoltio.github.io"
+let currentDomain = window.location.origin
+export let webDomain = 'http://localhost:5500'
 // http://localhost:5500
 // https://neavesvoltio.github.io
   

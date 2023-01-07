@@ -45,7 +45,7 @@ reservationButton.addEventListener('click', async (e) =>{
                   reservationStartHour: parseFloat(e.target.dataset.reservationStartHour),
                   reservationDateDay: e.target.dataset.reservationDateDay,
                   services: services,
-                  estatus: ''
+                  estatus: 'proceso'
                   
                 });
 

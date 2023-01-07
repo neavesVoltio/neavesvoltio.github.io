@@ -49,7 +49,6 @@ export function getProductos(){
                 img.src = doc.data().imageURL
                 img.alt = '...'
                 inputInventario.type = 'number'; 
-                inputInventario.id = 'productId'
                 labelInventario.for = 'productId'
                 aEliminarButton.href = '#'; 
                 aEliminarButton.textContent = 'Eliminar'
@@ -82,21 +81,25 @@ export function getProductos(){
             let productPrice = document.querySelectorAll('.inputProductPrice')
             let inputInventario = document.querySelectorAll('.inputInventario')
             let aEliminarButton = document.querySelectorAll('.aEliminarButton')
+            let currentInventario = inputInventario.value
+            
 
             productPrice.forEach( btn => {
+                let currentPrice = btn.value
                 btn.addEventListener('blur', async(e) =>{
+                    console.log(currentPrice);
                     let productId = e.target.dataset.productId
                     const docRef = doc(db, 'productos', productId)
                     await updateDoc( (docRef), {
                         precioArticulo: btn.value
                     }).then( () => {
                         Swal.fire({
-                            text:'Precio actualizado',
+                            text:'Precio actualizado!',
                             icon:'success',
                             timer: 2000,
                             showConfirmButton: false,
                             position: 'bottom-end',
-                          })
+                            })
                     }).catch((error) => {
                         console.log(error);
                     })
@@ -104,6 +107,7 @@ export function getProductos(){
             })
 
             inputInventario.forEach( btn => {
+                
                 btn.addEventListener('blur', async(e) =>{
                     let productId = e.target.dataset.productId
                     const docRef = doc(db, 'productos', productId)
@@ -116,7 +120,7 @@ export function getProductos(){
                             timer: 2000,
                             showConfirmButton: false,
                             position: 'bottom-end',
-                          })
+                            })
                     }).catch((error) => {
                         console.log(error);
                     })
@@ -127,11 +131,13 @@ export function getProductos(){
                 btn.addEventListener('click', async (e) => {
                     console.log('click eliminar');
                   Swal.fire({
-                    title: 'Desea eliminar este producto?',
-                    showDenyButton: true,
-                    showCancelButton: false,
+                    title: 'Requiere permisos de administrador',
+                    text:'Solo el administrador puede eliminar este producto, favor de enviar un correo a neaves@voltio.us',
+                    showDenyButton: false,
+                    showCancelButton: true,
                     confirmButtonText: 'Regresar',
                     denyButtonText: `Eliminar`,
+                    icon: 'warning'
                   }).then(async(result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
@@ -145,8 +151,7 @@ export function getProductos(){
                     } else if (result.isDenied) {
                       
                         let productId = e.target.dataset.productId
-                      //const reservation = query(collection(db, 'reservaciones'), where('start', '==', e.target.dataset.startDate));
-                      //const querySnapshot = await getDocs(reservation);
+                      
                       const docRef = doc(db, "productos", productId) 
                       await deleteDoc(docRef);
                       getProductos()
